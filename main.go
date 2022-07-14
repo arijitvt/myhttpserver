@@ -4,17 +4,27 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func scheduleAlarm(response http.ResponseWriter, req *http.Request) {
 	fmt.Println("Server")
 	output := "Hello From the server"
-	fmt.Fprintf(response,"Hello %q " , output )
+	fmt.Fprintf(response, "Hello %q ", output)
 }
 
 func main() {
-	http.HandleFunc("/alarm", scheduleAlarm)
+	router := gin.Default()
 	port := os.Getenv("PORT")
 	fmt.Println("Starting scheduling server -----> ", port)
-	http.ListenAndServe(":"+port,nil)
+	httpServer := &http.Server{
+		Addr:           ":" + port,
+		Handler:        router,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+	httpServer.ListenAndServe()
 }
