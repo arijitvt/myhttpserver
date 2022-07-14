@@ -7,15 +7,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Hello {
+type Hello struct {
 	Name string
 }
 
 func scheduleAlarm(c *gin.Context) {
 	fmt.Println("Getting request")
-	obj := Hello()
+	var obj Hello
 	obj.Name = "arijit"
-	c.JSON(200,obj)
+	c.JSON(200, obj)
 }
 
 func main() {
