@@ -13,8 +13,8 @@ func scheduleAlarm(response http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	fmt.Println("Starting scheduling server ----->")
 	http.HandleFunc("/alarm", scheduleAlarm)
 	port := os.Getenv("PORT")
+	fmt.Println("Starting scheduling server -----> ", port)
 	http.ListenAndServe(":"+port,nil)
 }
