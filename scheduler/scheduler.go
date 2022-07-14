@@ -1,9 +1,11 @@
-package "scheduler"
+package scheduler
 
-type Job struct {
-	JobName  String
+type JobData struct {
+	JobId string
 }
 
-func Schedule(job Job) {
+func Schedule(job JobData) {
 
 }
+
+
