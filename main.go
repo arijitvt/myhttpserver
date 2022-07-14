@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 func scheduleAlarm(response http.ResponseWriter, req *http.Request) {
@@ -14,5 +15,6 @@ func scheduleAlarm(response http.ResponseWriter, req *http.Request) {
 func main() {
 	fmt.Println("Starting scheduling server ----->")
 	http.HandleFunc("/alarm", scheduleAlarm)
-	http.ListenAndServe(":10000",nil)
+	port := os.Getenv("PORT")
+	http.ListenAndServe(":"+port,nil)
 }
