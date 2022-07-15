@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/arijitvt/myhttpserver/notify"
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,7 +16,13 @@ type Response struct {
 func AddJob(c *gin.Context) {
 	var response Response
 	response.Message = "SUCCESS"
-	c.JSON(http.StatusOK, response)
+	result := notify.Notify(response.Message)
+	if result == 200 {
+		c.JSON(http.StatusOK, response)
+	} else {
+		c.JSON(http.StatusBadRequest, "Could not send request")
+	}
+
 }
 
 func main() {
