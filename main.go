@@ -10,19 +10,14 @@ import (
 )
 
 type Response struct {
+	Status  int
 	Message string
 }
 
 func AddJob(c *gin.Context) {
 	var response Response
-	response.Message = "SUCCESS"
-	result := notify.Notify(response.Message)
-	if result == 200 {
-		c.JSON(http.StatusOK, response)
-	} else {
-		c.JSON(http.StatusBadRequest, "Could not send request")
-	}
-
+	response.Status, response.Message = notify.Notify(response.Message)
+	c.JSON(http.StatusOK, response)
 }
 
 func main() {
